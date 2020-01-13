@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>KontentSupportSearchProjectCore</id>
+    <version>1.0.1</version>
+    <title>KontentSupportSearchProjectCore</title>
+    <authors>Jan Sedo</authors>
+    <owners>Jan Sedo</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Migrate conversations from Intercom to Kentico Kontent project, sync with Algolia</description>
+    <releaseNotes>Removed delivery client from dependencies</releaseNotes>
+    <copyright>Copyright 2019</copyright>
+    <tags>Kentico Kontent</tags>
+	<dependencies>
+      <group targetFramework=".NETFramework4.6.1" />
+    </dependencies>
+  </metadata>
+</package>
+
