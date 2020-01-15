@@ -8,24 +8,26 @@ The `SearchProjectClient` class is the main class of the library. Using this cla
 To create an instance of the class, you need to provide a multiple settings classes.
 
 ```csharp
-            AlgoliaSettings algoliaSettings = new AlgoliaSettings()
-            {
-                ApplicationId = <Algolia application id>,
-                ApiKey = <Algolia API key>,
-                IndexName = <Algolia index name>
-            };
+AlgoliaSettings algoliaSettings = new AlgoliaSettings()
+{
+    ApplicationId = //Algolia application id,
+    ApiKey = //Algolia API key,
+    IndexName = //Algolia index name
+};
 
-            KontentFunctionsSettings kontentSettings = new KontentFunctionsSettings()
-            {
-                ProjectId = <Kontent project ID>,
-                CMApiKey = <Kontent project CM API key>,
-                ConversationTypeGuid = <GUID of Conversation Model>,
-                UserTypeGuid = <GUID of User Model>,
-                CleanProject = <true/false, true only for first import>,
-                BannedConversations = <list of conversation ids separated by comma>
-            };
+KontentFunctionsSettings kontentSettings = new KontentFunctionsSettings()
+{
+    ProjectId = //Kontent project ID,
+    CMApiKey = //Kontent project CM API key,
+    ConversationTypeGuid = //GUID of Conversation Model,
+    UserTypeGuid = //GUID of User Model,
+    CleanProject = //true/false, true only for first import,
+    BannedConversations = //list of conversation ids separated by comma
+};
 
-            SearchProjectClient client = new SearchProjectClient(<Intercom Auth Api Key>, kontentSettings, algoliaSettings);
+string intercomApiKey = //Intercom Auth Api Key;
+
+SearchProjectClient client = new SearchProjectClient(intercomApiKey, kontentSettings, algoliaSettings);
 ```
 
 Once you create a `SearchProjectClient`, use.
