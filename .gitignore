@@ -430,6 +430,7 @@ MigrationBackup/
 # except build/, which is used as an MSBuild target.
 # Uncomment if necessary however generally it will be regenerated when needed
 # NuGet v3's project.json files produces more ignorable files
+/packages
 
 # Microsoft Azure Build Output
 
