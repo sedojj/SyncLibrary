@@ -667,8 +667,8 @@ namespace IntercomSearchProjectCore
             result += "</em><strong>";
             result += GetConversationUsernamePlaceholder(conversation.conversation_message.author.id, conversation.conversation_message.author.type);
             result += "</strong>:</p>";
-            result += Tools.WrapInParagraphIfNeeded(Tools.SanitizeRichText(Tools.RemoveParagraphWrapper(conversation.conversation_message.body)));
-            result += "<p></p>";
+            result += conversation.conversation_message.body;
+            result += "\n\n";
 
             foreach (var part in conversation.conversation_parts)
             {
@@ -682,7 +682,7 @@ namespace IntercomSearchProjectCore
                             result += "</em><strong> ";
                             result += GetConversationUsernamePlaceholder(part.author.id, part.author.type);
                             result += "</strong>:</p>";
-                            result += Tools.WrapInParagraphIfNeeded(Tools.SanitizeRichText(Tools.RemoveParagraphWrapper(part.body)));
+                            result += part.body;
                             result += "<p></p>"; ;
                             result += "<p><em>system_message@";
                             result += Tools.FromUnixTimestamp(part.created_at);
@@ -690,7 +690,7 @@ namespace IntercomSearchProjectCore
                             result += GetConversationUsernamePlaceholder(part.author.id, part.author.type);
                             result += " has assigned the conversation to " + GetConversationUsernamePlaceholder(part.assigned_to.id, part.assigned_to.type) + " ";
                             result += "</p>";
-                            result += "<p></p>";
+                            result += "\n\n";
                         }
                         else
                         {
@@ -700,7 +700,7 @@ namespace IntercomSearchProjectCore
                             result += GetConversationUsernamePlaceholder(part.author.id, part.author.type);
                             result += " has assigned the conversation to " + GetConversationUsernamePlaceholder(part.assigned_to.id, part.assigned_to.type) + " ";
                             result += "</p>";
-                            result += "<p></p>";
+                            result += "\n\n";
                         }
                         break;
 
@@ -710,7 +710,7 @@ namespace IntercomSearchProjectCore
                         result += "</em>:</p><p>";
                         result += "Unassigned because " + GetConversationUsernamePlaceholder(part.author.id, part.author.type) + " turned on away mode and reassignment.";
                         result += "</p>";
-                        result += "<p></p>";
+                        result += "\n\n";
                         break;
 
                     case "comment":
@@ -725,9 +725,9 @@ namespace IntercomSearchProjectCore
                         }
                         else
                         {
-                            result += Tools.WrapInParagraphIfNeeded(Tools.SanitizeRichText(Tools.RemoveParagraphWrapper(part.body)));
+                            result += part.body;
                         }
-                        result += "<p></p>";
+                        result += "\n\n";
                         break;
 
                     case "note":
@@ -736,8 +736,8 @@ namespace IntercomSearchProjectCore
                         result += "</em><strong> ";
                         result += GetConversationUsernamePlaceholder(part.author.id, part.author.type);
                         result += "</strong>:</p>";
-                        result += Tools.WrapInParagraphIfNeeded(Tools.SanitizeRichText(Tools.RemoveParagraphWrapper(part.body)));
-                        result += "<p></p>"; ;
+                        result += part.body;
+                        result += "\n\n"; ;
                         break;
 
                     case "open":
@@ -746,7 +746,7 @@ namespace IntercomSearchProjectCore
                         result += "</em><strong> ";
                         result += GetConversationUsernamePlaceholder(part.author.id, part.author.type);
                         result += "</strong>:</p>";
-                        result += Tools.WrapInParagraphIfNeeded(Tools.SanitizeRichText(Tools.RemoveParagraphWrapper(part.body)));
+                        result += part.body;
                         result += "<p></p>"; ;
                         result += "<p><em>system_message@";
                         result += Tools.FromUnixTimestamp(part.created_at);
@@ -754,7 +754,7 @@ namespace IntercomSearchProjectCore
                         result += GetConversationUsernamePlaceholder(part.author.id, part.author.type);
                         result += " has replied and reopened the conversation.";
                         result += "</p>";
-                        result += "<p></p>";
+                        result += "\n\n";
                         break;
 
                     case "note_and_reopen":
@@ -768,7 +768,7 @@ namespace IntercomSearchProjectCore
                             result += "</em><strong> ";
                             result += GetConversationUsernamePlaceholder(part.author.id, part.author.type);
                             result += "</strong>:</p>";
-                            result += Tools.WrapInParagraphIfNeeded(Tools.SanitizeRichText(Tools.RemoveParagraphWrapper(part.body)));
+                            result += part.body;
                             result += "<p></p>"; ;
                             result += "<p><em>system_message@";
                             result += Tools.FromUnixTimestamp(part.created_at);
@@ -776,7 +776,7 @@ namespace IntercomSearchProjectCore
                             result += GetConversationUsernamePlaceholder(part.author.id, part.author.type);
                             result += " has replied and closed the conversation.";
                             result += "</p>";
-                            result += "<p></p>";
+                            result += "\n\n";
 
                         }
                         else
@@ -787,7 +787,7 @@ namespace IntercomSearchProjectCore
                             result += GetConversationUsernamePlaceholder(part.author.id, part.author.type);
                             result += " has closed the conversation.";
                             result += "</p>";
-                            result += "<p></p>";
+                            result += "\n\n";
 
                         }
                         break;
@@ -798,7 +798,7 @@ namespace IntercomSearchProjectCore
                         result += "</em>:</p><p>";
                         result += "Conversation rating changed.";
                         result += "</p>";
-                        result += "<p></p>";
+                        result += "\n\n";
                         break;
 
                     case "conversation_rating_remark_added":
@@ -807,7 +807,7 @@ namespace IntercomSearchProjectCore
                         result += "</em>:</p><p>";
                         result += "Conversation rating message added.";
                         result += "</p>";
-                        result += "<p></p>";
+                        result += "\n\n";
                         break;
 
                     case "participant_added":
