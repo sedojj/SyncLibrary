@@ -357,7 +357,7 @@ namespace IntercomSearchProjectCore
 
                 List<ContentTypeElementModel> conversationTypeElements = new List<ContentTypeElementModel>(
                         conversationElementValues
-                            .Select(x => func(x)));             
+                            .Select(x => func(x)));
 
 
                 ContentTypeModel conversationModel = new ContentTypeModel()
@@ -371,7 +371,7 @@ namespace IntercomSearchProjectCore
                 var payload = JsonConvert.SerializeObject(conversationModel);
 
                 httpClient.DefaultRequestHeaders.Add("Authorization", "Bearer " + options.ApiKey);
-                result = await httpClient.PostAsync("https://manage.kenticocloud.com/v2/projects/" + options.ProjectId +  "/types", new StringContent(payload, Encoding.UTF8, "application/json"));
+                result = await httpClient.PostAsync("https://manage.kenticocloud.com/v2/projects/" + options.ProjectId + "/types", new StringContent(payload, Encoding.UTF8, "application/json"));
             }
 
             var reply = await result.Content.ReadAsStringAsync();
@@ -418,7 +418,7 @@ namespace IntercomSearchProjectCore
                 result = await httpClient.PostAsync("https://manage.kenticocloud.com/v2/projects/" + options.ProjectId + "/types", new StringContent(payload, Encoding.UTF8, "application/json"));
             }
 
-           reply = await result.Content.ReadAsStringAsync();
+            reply = await result.Content.ReadAsStringAsync();
 
             if (reply == null)
                 return false;
@@ -492,7 +492,7 @@ namespace IntercomSearchProjectCore
             catch (Exception e)
             {
                 if (e.Source != null)
-                    logger.Error(e , "Something went wrong deleting items.");
+                    logger.Error(e, "Something went wrong deleting items.");
                 throw;
             }
         }
@@ -635,7 +635,7 @@ namespace IntercomSearchProjectCore
                     {
                         try
                         {
-                            if (i<10)
+                            if (i < 10)
                             {
                                 i--;
                                 await Task.Delay(100);
@@ -664,11 +664,11 @@ namespace IntercomSearchProjectCore
             // poresit attachment
             result += "<p><em>message@";
             result += Tools.FromUnixTimestamp(conversation.created_at);
-            result += "</em><strong> ";
+            result += "</em><strong>";
             result += GetConversationUsernamePlaceholder(conversation.conversation_message.author.id, conversation.conversation_message.author.type);
             result += "</strong>:</p>";
             result += Tools.WrapInParagraphIfNeeded(Tools.SanitizeRichText(Tools.RemoveParagraphWrapper(conversation.conversation_message.body)));
-            result += "<p></p>"; ;
+            result += "<p></p>";
 
             foreach (var part in conversation.conversation_parts)
             {
@@ -690,7 +690,7 @@ namespace IntercomSearchProjectCore
                             result += GetConversationUsernamePlaceholder(part.author.id, part.author.type);
                             result += " has assigned the conversation to " + GetConversationUsernamePlaceholder(part.assigned_to.id, part.assigned_to.type) + " ";
                             result += "</p>";
-                            result += "<p></p>"; ;
+                            result += "<p></p>";
                         }
                         else
                         {
@@ -700,7 +700,7 @@ namespace IntercomSearchProjectCore
                             result += GetConversationUsernamePlaceholder(part.author.id, part.author.type);
                             result += " has assigned the conversation to " + GetConversationUsernamePlaceholder(part.assigned_to.id, part.assigned_to.type) + " ";
                             result += "</p>";
-                            result += "<p></p>"; ;
+                            result += "<p></p>";
                         }
                         break;
 
@@ -710,7 +710,7 @@ namespace IntercomSearchProjectCore
                         result += "</em>:</p><p>";
                         result += "Unassigned because " + GetConversationUsernamePlaceholder(part.author.id, part.author.type) + " turned on away mode and reassignment.";
                         result += "</p>";
-                        result += "<p></p>"; ;
+                        result += "<p></p>";
                         break;
 
                     case "comment":
@@ -727,7 +727,7 @@ namespace IntercomSearchProjectCore
                         {
                             result += Tools.WrapInParagraphIfNeeded(Tools.SanitizeRichText(Tools.RemoveParagraphWrapper(part.body)));
                         }
-                        result += "<p></p>"; ;
+                        result += "<p></p>";
                         break;
 
                     case "note":
@@ -754,7 +754,7 @@ namespace IntercomSearchProjectCore
                         result += GetConversationUsernamePlaceholder(part.author.id, part.author.type);
                         result += " has replied and reopened the conversation.";
                         result += "</p>";
-                        result += "<p></p>"; ;
+                        result += "<p></p>";
                         break;
 
                     case "note_and_reopen":
@@ -776,7 +776,7 @@ namespace IntercomSearchProjectCore
                             result += GetConversationUsernamePlaceholder(part.author.id, part.author.type);
                             result += " has replied and closed the conversation.";
                             result += "</p>";
-                            result += "<p></p>"; ;
+                            result += "<p></p>";
 
                         }
                         else
@@ -787,7 +787,7 @@ namespace IntercomSearchProjectCore
                             result += GetConversationUsernamePlaceholder(part.author.id, part.author.type);
                             result += " has closed the conversation.";
                             result += "</p>";
-                            result += "<p></p>"; ;
+                            result += "<p></p>";
 
                         }
                         break;
@@ -798,7 +798,7 @@ namespace IntercomSearchProjectCore
                         result += "</em>:</p><p>";
                         result += "Conversation rating changed.";
                         result += "</p>";
-                        result += "<p></p>"; ;
+                        result += "<p></p>";
                         break;
 
                     case "conversation_rating_remark_added":
@@ -807,7 +807,7 @@ namespace IntercomSearchProjectCore
                         result += "</em>:</p><p>";
                         result += "Conversation rating message added.";
                         result += "</p>";
-                        result += "<p></p>"; ;
+                        result += "<p></p>";
                         break;
 
                     case "participant_added":
@@ -848,7 +848,11 @@ namespace IntercomSearchProjectCore
             if (user == null)
                 return "Non-existing user";
 
-            if (user.Name != string.Empty)
+            if (user.Type != "admin")
+            {
+                return "[user:" + user.Id + "]";
+            }
+            else if (user.Name != string.Empty)
                 return user.Name;
             else if (user.Email != string.Empty)
                 return user.Email;
@@ -882,6 +886,6 @@ namespace IntercomSearchProjectCore
         public string SecureApiKey { get; set; }
         public string BannedConversations { get; set; }
     }
-    
+
 
 }
